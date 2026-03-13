@@ -125,6 +125,19 @@
 				if ( currentVrm ) {
 
 					const delta = clock.getDelta();
+					const elapsed = clock.getElapsedTime();
+					
+					const chest = currentVrm.humanoid.getNormalizedBoneNode( 'chest' );
+					if (chest) {
+						chest.rotation.z = Math.sin(elapsed) * 0.05;
+					}
+					
+					const leftUpperArm = currentVrm.humanoid.getNormalizedBoneNode( 'leftUpperArm' );
+					const rightUpperArm = currentVrm.humanoid.getNormalizedBoneNode( 'rightUpperArm' );
+					if (leftUpperArm && rightUpperArm) {
+						leftUpperArm.rotation.z = 1.2;
+						rightUpperArm.rotation.z = -1.2;
+					}
 					
 					vrmAnimate.motions.blink(); // <- kakikuwae
 					
