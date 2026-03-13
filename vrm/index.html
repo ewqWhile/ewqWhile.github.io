@@ -124,9 +124,11 @@
 				// update vrm components
 				if ( currentVrm ) {
 
-					vrmAnimate.motions.blink(); // <- me
+					const delta = clock.getDelta();
 					
-					currentVrm.update( clock.getDelta() );
+					vrmAnimate.motions.blink(); // <- kakikuwae
+					
+					currentVrm.update( delta );
 					
 				}
 
@@ -140,8 +142,8 @@
 					blink() {
 					    const blinkValue = Math.sin(Date.now() * 0.01) > 0.95 ? 1.0 : 0.0;
 					    currentVrm.expressionManager.setValue('blink', blinkValue);
-				    },
-				};
+				    }
+				}
 			};
 
 
