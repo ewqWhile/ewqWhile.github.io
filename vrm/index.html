@@ -122,37 +122,28 @@
 				requestAnimationFrame( animate );
 
 				// update vrm components
-				vrmAnimate.run();
+				if ( currentVrm ) {
+
+					vrmAnimate.motions.blink(); // <- me
+					
+					currentVrm.update( clock.getDelta() );
+					
+				}
 
 				// render
 				renderer.render( scene, camera );
 
 			}
 
-			const vrmAnimate = (function() {
-				const runnerAnimations = [], motions = {
+			const vrmAnimate = {
+				motions: {
 					blink() {
 					    const blinkValue = Math.sin(Date.now() * 0.01) > 0.95 ? 1.0 : 0.0;
 					    currentVrm.expressionManager.setValue('blink', blinkValue);
 				    },
 				};
+			};
 
-
-				
-				
-				return {
-				    run() {
-					    if ( currentVrm ) {
-						    animations.forEach(e => e());
-						    currentVrm.update( clock.getDelta() );
-					    }
-				    },
-					startBlink() {
-						if (!runnerAnimations.includes(motions.blink)) runnerAnimations.push(motions.blink);
-					},
-				};
-			})();
-			vrmAnimate.startBlink();
 
 			animate();
 		</script>
